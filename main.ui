@@ -55,7 +55,7 @@ color:white;
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="main">
     <widget class="QPushButton" name="addToDoBtn">
@@ -151,7 +151,18 @@ color:white;
     </widget>
    </widget>
    <widget class="QWidget" name="NotesPage"/>
-   <widget class="QWidget" name="AlarmPage"/>
+   <widget class="QWidget" name="AlarmPage">
+    <widget class="QListWidget" name="listWidget">
+     <property name="geometry">
+      <rect>
+       <x>40</x>
+       <y>30</y>
+       <width>256</width>
+       <height>192</height>
+      </rect>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="ReminderPage"/>
   </widget>
   <widget class="QTimeEdit" name="timeEdit">

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>648</width>
-    <height>331</height>
+    <width>677</width>
+    <height>302</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,9 +38,9 @@ color:white;
   <widget class="QCalendarWidget" name="calendarWidget">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>90</y>
-     <width>256</width>
+     <x>20</x>
+     <y>70</y>
+     <width>311</width>
      <height>190</height>
     </rect>
    </property>
@@ -48,14 +48,14 @@ color:white;
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>290</x>
+     <x>320</x>
      <y>60</y>
      <width>351</width>
      <height>271</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="main">
     <widget class="QPushButton" name="addToDoBtn">
@@ -156,7 +156,7 @@ color:white;
      <property name="geometry">
       <rect>
        <x>40</x>
-       <y>30</y>
+       <y>40</y>
        <width>256</width>
        <height>192</height>
       </rect>
@@ -165,20 +165,23 @@ color:white;
    </widget>
    <widget class="QWidget" name="ReminderPage"/>
   </widget>
-  <widget class="QTimeEdit" name="timeEdit">
+  <widget class="QLCDNumber" name="lcdNumber">
    <property name="geometry">
     <rect>
-     <x>100</x>
-     <y>290</y>
-     <width>121</width>
-     <height>22</height>
+     <x>50</x>
+     <y>270</y>
+     <width>251</width>
+     <height>23</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 600 20pt &quot;Segoe UI Variable Text Semibold&quot;;</string>
    </property>
   </widget>
   <zorder>stackedWidget</zorder>
   <zorder>label</zorder>
   <zorder>calendarWidget</zorder>
-  <zorder>timeEdit</zorder>
+  <zorder>lcdNumber</zorder>
  </widget>
  <resources/>
  <connections/>

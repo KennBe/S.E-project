@@ -198,6 +198,19 @@ color:white;
       </rect>
      </property>
     </widget>
+    <widget class="QPushButton" name="editAlarmBtn">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>150</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Edit Alarm</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="ReminderPage"/>
   </widget>

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>677</width>
+    <width>730</width>
     <height>302</height>
    </rect>
   </property>
@@ -21,7 +21,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>651</width>
+     <width>731</width>
      <height>61</height>
     </rect>
    </property>
@@ -48,14 +48,14 @@ color:white;
   <widget class="QStackedWidget" name="stackedWidget">
    <property name="geometry">
     <rect>
-     <x>320</x>
+     <x>330</x>
      <y>60</y>
-     <width>351</width>
+     <width>381</width>
      <height>271</height>
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>3</number>
    </property>
    <widget class="QWidget" name="main">
     <widget class="QPushButton" name="addToDoBtn">
@@ -152,13 +152,49 @@ color:white;
    </widget>
    <widget class="QWidget" name="NotesPage"/>
    <widget class="QWidget" name="AlarmPage">
-    <widget class="QListWidget" name="listWidget">
+    <widget class="QListWidget" name="alarmList">
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>40</y>
+       <x>10</x>
+       <y>60</y>
        <width>256</width>
-       <height>192</height>
+       <height>171</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="addAlarmTimeButton">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>73</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Add Alarm</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="removeAlarmButton">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>110</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Remove Alarm</string>
+     </property>
+    </widget>
+    <widget class="QTimeEdit" name="alarmTimeEdit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>151</width>
+       <height>22</height>
       </rect>
      </property>
     </widget>

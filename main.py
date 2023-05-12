@@ -1,9 +1,12 @@
-from PyQt6.QtWidgets import QApplication, QDialog, QLCDNumber, QListWidgetItem
-from PyQt6.QtCore import QTimer, QUrl
+from PyQt6.QtWidgets import QApplication, QDialog, QLCDNumber, QListWidgetItem, QMessageBox, QStackedWidget, QWidget
+from PyQt6.QtCore import QTimer, QUrl, Qt
 from PyQt6.QtMultimedia import QSoundEffect
 from PyQt6.uic import loadUi
+from PyQt6 import QtCore
 from datetime import datetime
 import sys
+import sqlite3
+
 
 
 
@@ -16,6 +19,9 @@ class Window(QDialog):
 
         # Connect the calendar's selectionChanged signal to the calendarDateChanged slot
         self.calendarWidget.selectionChanged.connect(self.calendarDateChanged)
+        self.calendarDateChanged()
+        self.saveBtn.clicked.connect(self.saveChanges)
+        self.addBtn1.clicked.connect(self.addNewTask)
 
         # Set up the button connections
         self.stackedWidget.setCurrentWidget(self.main)
@@ -40,8 +46,63 @@ class Window(QDialog):
     # ToDoList
     def calendarDateChanged(self):
         print("The calendar date was changed.")
-        dateSelected = self.calendarWidget.selectedDate().toPython()
+        dateSelected = self.calendarWidget.selectedDate().toPyDate()
         print("Date selected:", dateSelected)
+        self.updateTaskList(dateSelected)
+
+    def updateTaskList(self, date):
+        self.tasksWidget.clear()
+        db = sqlite3.connect("data.db")
+        cursor = db.cursor()
+
+        query = "SELECT task, completed FROM tasks WHERE date = ?"
+        row = (date,)
+        results = cursor.execute(query, row).fetchall()
+        for result in results:
+            item = QListWidgetItem(str(result[0]))
+            item.setFlags(item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+            item.setCheckState(QtCore.Qt.CheckState.Unchecked)
+            if result[1] == "YES":
+                item.setCheckState(QtCore.Qt.CheckState.Checked)
+            elif result[1] == "NO":
+                item.setCheckState(QtCore.Qt.CheckState.Unchecked)
+            self.tasksWidget.addItem(item)
+    
+    def saveChanges(self):
+        db = sqlite3.connect("data.db")
+        cursor = db.cursor()
+        date = self.calendarWidget.selectedDate().toPyDate()
+        
+        for i in range(self.tasksWidget.count()):
+            item = self.tasksWidget.item(i)
+            task = item.text()
+            if item.checkState() == QtCore.Qt.CheckState.Checked:
+                query = "UPDATE tasks SET completed = 'YES' WHERE task = ? AND date = ?"
+            else:
+                query = "UPDATE tasks SET completed = 'NO' WHERE task = ? AND date = ?"
+            row = (task, date,)
+            cursor.execute(query, row)
+        db.commit()
+
+        messageBox = QMessageBox()
+        messageBox.setText("Changes saved.")
+        messageBox.setStandardButtons(QMessageBox.StandardButton.Ok)
+        messageBox.exec()
+
+    def addNewTask(self):
+        db = sqlite3.connect("data.db")
+        cursor = db.cursor()
+
+        newTask = str(self.taskLineEdit.text())
+        date = self.calendarWidget.selectedDate().toPyDate()
+
+        query = "INSERT INTO tasks(task, completed, date) VALUES (?,?,?)"
+        row = (newTask, "NO", date,)
+
+        cursor.execute(query, row)
+        db.commit()
+        self.updateTaskList(date)
+        self.taskLineEdit.clear()
 
     # Alarm page/LCD clock
     def lcdclock(self):
@@ -92,6 +153,7 @@ class Window(QDialog):
     def removeAlarm(self):
         for item in self.alarmList.selectedItems():
             self.alarmList.takeItem(self.alarmList.row(item))
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = Window()

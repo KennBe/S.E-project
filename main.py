@@ -188,24 +188,18 @@ class Window(QDialog):
 
         # Insert the new alarm into the database
         query = "INSERT INTO alarm(time, date, completed) VALUES (?, ?, ?)"
-        row = (time, date, 0)  # Assuming default values for "completed"
+        row = (time, date, "NO")  # Assuming default values for "completed"
         cursor.execute(query, row)
         db.commit()
-
-        # Save changes in alarm to database
-        for i in range(self.alarmList.count()):
-            item = self.alarmList.item(i)
-            time = item.text()
-            completed = "YES" if item.checkState() == Qt.CheckState.Checked else "NO"
-            query = "UPDATE alarm SET completed = ? WHERE time = ? AND date = ?"
-            row = (completed, time, date)  
-            cursor.execute(query, row)
-            db.commit()
 
         messageBox = QMessageBox()
         messageBox.setText("Alarm Added.")
         messageBox.setStandardButtons(QMessageBox.StandardButton.Ok)
         messageBox.exec()
+
+        # Update the alarm list
+        self.updateAlarmList(date)
+        
 
     def updateAlarmList(self, time):
         self.alarmList.clear()
@@ -216,12 +210,14 @@ class Window(QDialog):
         row = (time,)
         results = cursor.execute(query, row).fetchall()
         for result in results:
-            item = QListWidgetItem(str(result[0]))
+            time = result[0]
+            item = QListWidgetItem(time)
             self.alarmList.addItem(item)
 
+        # Remove the selected alarm
     def removeAlarm(self):
-        with sqlite3.connect("data.db") as db:
-            cursor = db.cursor()
+        db = sqlite3.connect("data.db")
+        cursor = db.cursor()
 
         for item in self.alarmList.selectedItems():
             time = item.text()
@@ -231,12 +227,11 @@ class Window(QDialog):
             cursor.execute(query, row)
             db.commit()
 
-            self.alarmList.takeItem(self.alarmList.row(item))
+        self.alarmList.takeItem(self.alarmList.row(item))
+
     
     
     # Notes
-    
-    # Adds a new note to the list widget
     def addNewNote(self):
         newNote = str(self.noteLineEdit.text())
         self.noteItemList.addItem(newNote)

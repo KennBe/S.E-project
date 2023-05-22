@@ -55,7 +55,7 @@ color:white;
     </rect>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>2</number>
    </property>
    <widget class="QWidget" name="main">
     <widget class="QPushButton" name="addToDoBtn">
@@ -196,7 +196,70 @@ color:white;</string>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="NotesPage"/>
+   <widget class="QWidget" name="NotesPage">
+    <widget class="QListWidget" name="noteItemList">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>20</y>
+       <width>271</width>
+       <height>151</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="noteDeleteBtn">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>170</y>
+       <width>75</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Delete</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="noteLineEdit">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>170</y>
+       <width>271</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font:12pt;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="noteOKBtn">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>130</y>
+       <width>75</width>
+       <height>24</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>OK</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>0</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Notes.....</string>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="AlarmPage">
     <widget class="QListWidget" name="alarmList">
      <property name="geometry">
@@ -244,8 +307,22 @@ color:white;</string>
       </rect>
      </property>
     </widget>
+    <widget class="QPushButton" name="editAlarmBtn">
+     <property name="geometry">
+      <rect>
+       <x>280</x>
+       <y>150</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Edit Alarm</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QWidget" name="ReminderPage"/>
+   <widget class="QWidget" name="NotesPage2"/>
   </widget>
   <widget class="QLCDNumber" name="lcdNumber">
    <property name="geometry">

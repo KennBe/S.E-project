@@ -29,6 +29,10 @@ class Window(QDialog):
         self.addNoteBtn.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.NotesPage))
         self.addAlarmBtn.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.AlarmPage))
         self.addReminderBtn.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.ReminderPage))
+        self.noteOKBtn.clicked.connect(self.addNewNote)
+        self.noteDeleteBtn.clicked.connect(self.deleteNote)
+
+
 
         # Call the __lcd__ function to start the LCD clock
         self.lcdclock()
@@ -153,6 +157,21 @@ class Window(QDialog):
     def removeAlarm(self):
         for item in self.alarmList.selectedItems():
             self.alarmList.takeItem(self.alarmList.row(item))
+    
+   # Notes
+    
+    def addNewNote(self):
+        newNote = str(self.noteLineEdit.text())
+        self.noteItemList.addItem(newNote)
+
+    
+    def deleteNote(self):
+        for item in self.noteItemList.selectedItems():
+            self.noteItemList.takeItem(self.noteItemList.row(item))
+
+
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
